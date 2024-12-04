@@ -1,2 +1,3 @@
 # webappfinalproject2024
 webappfinalproject2024
+COMP229 || WEB APPLICATION DEVELOPMENT (SEC. 011) || TERM PROJECT || GROUP 6 || NOVEMBER 10, 2024
