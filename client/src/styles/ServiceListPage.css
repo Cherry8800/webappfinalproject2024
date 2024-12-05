@@ -1,0 +1,76 @@
+/* ServiceListPage.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.service-list-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center;
+}
+
+h2 {
+    color: #1fcfb2;
+}
+
+select, input[type="date"] {
+    display: block;
+    width: calc(100% - 22px); /* Adjust width to account for padding and border */
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    display: inline-block;
+    width: auto; /* Set width to auto for smaller button */
+    padding: 10px 20px; /* Adjust padding for smaller button */
+    margin: 10px 0;
+    background-color: #1fcfb2;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #17a589;
+}
+
+.success-message {
+    margin: 20px 0;
+    padding: 10px;
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    border-radius: 4px;
+}
+
+.facilities-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.facilities-table th, .facilities-table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+.facilities-table th {
+    background-color: #1fcfb2;
+    color: white;
+}
+
+.facilities-table td {
+    background-color: #f9f9f9;
+}
