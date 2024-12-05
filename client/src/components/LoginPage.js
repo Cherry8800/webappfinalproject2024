@@ -14,7 +14,7 @@ const LoginPage = () => {
       const data = response.data;
       if (data) {
         localStorage.setItem('userInfo', JSON.stringify(data));
-        navigate(data.role === 'admin' ? '/admin-dashboard' : '/user-dashboard');
+        navigate(data.role === 'admin' ? '/admin/dashboard' : '/dashboard');
         window.location.reload(); // Refresh the page
       } else {
         alert('Login failed. Please check your credentials.');

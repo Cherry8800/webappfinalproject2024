@@ -12,19 +12,21 @@ const Navbar = () => {
   return (
     <nav>
       <Link to="/">Home</Link>
-      <Link to="/contact">Contact</Link>
       {userInfo ? (
         <>
           {userInfo.role === 'admin' ? (
             <>
+              <Link to="/admin/dashboard">Admin Dashboard</Link>
               <Link to="/admin/users">User List</Link>
               <Link to="/admin/services">Admin Service List</Link>
+              <Link to="/contact">Contact</Link> {/* Move Contact here */}
             </>
           ) : (
             <>
               <Link to="/profile">MyProfile</Link>
               <Link to="/dashboard">Dashboard</Link>
               <Link to="/services">Service List</Link>
+              <Link to="/contact">Contact</Link> {/* Keep Contact here for regular users */}
             </>
           )}
           <button onClick={handleLogout}>Logout</button>
@@ -33,6 +35,7 @@ const Navbar = () => {
         <>
           <Link to="/signup">Signup</Link>
           <Link to="/login">Login</Link>
+          <Link to="/contact">Contact</Link> {/* Keep Contact here for non-logged-in users */}
         </>
       )}
     </nav>
@@ -40,3 +43,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
