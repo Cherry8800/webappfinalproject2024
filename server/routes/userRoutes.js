@@ -9,7 +9,7 @@ router.post('/login', loginUser);
 router.get('/profile', protect, getUserProfile);
 router.put('/profile', protect, updateUserProfile);
 router.get('/appointments', protect, getAppointments);
-router.get('/facilities', getFacilities); // Public route to fetch facilities and services
+router.get('/facilities', protect, getFacilities); // Protected route to fetch facilities and services
 
 module.exports = router;
 
