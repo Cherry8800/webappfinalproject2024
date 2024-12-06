@@ -13,7 +13,7 @@ body {
     background-color: white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    text-align: center; /* Center the content */
+    text-align: center;
 }
 
 .login-container h2 {
@@ -24,7 +24,7 @@ body {
 .login-container form {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center the form elements */
+    align-items: center;
 }
 
 .login-container input {
@@ -42,7 +42,7 @@ body {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    width: 25%; /* Set button width to 25% of the page */
+    width: 25%;
 }
 
 .login-container button:hover {

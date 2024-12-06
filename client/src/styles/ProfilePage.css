@@ -13,7 +13,7 @@ body {
     background-color: white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    text-align: center; /* Center the content */
+    text-align: center;
 }
 
 .profile-container h2 {
@@ -24,13 +24,13 @@ body {
 .profile-container form {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center the form elements */
+    align-items: center; 
 }
 
 .profile-container form div {
     width: 100%;
     margin-bottom: 15px;
-    text-align: left; /* Align labels to the left */
+    text-align: left;
 }
 
 .profile-container label {
@@ -43,7 +43,7 @@ body {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    width: 100%; /* Set input width to 100% of the container */
+    width: 100%; 
 }
 
 .profile-container button {
@@ -53,7 +53,7 @@ body {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    width: 50%; /* Set button width to 50% of the container */
+    width: 50%; 
 }
 
 .profile-container button:hover {

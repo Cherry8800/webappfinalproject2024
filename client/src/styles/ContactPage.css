@@ -13,7 +13,7 @@ body {
     background-color: white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    text-align: center; /* Center the content */
+    text-align: center;
 }
 
 .contact-container h2 {

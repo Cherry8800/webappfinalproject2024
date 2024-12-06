@@ -45,22 +45,6 @@ const updateAppointment = async (req, res) => {
   }
 };
 
-// const deleteAppointment = async (req, res) => {
-//   const { appointmentId } = req.params;
-
-//   try {
-//     const appointment = await Appointment.findById(appointmentId);
-//     if (!appointment) {
-//       return res.status(404).json({ message: 'Appointment not found' });
-//     }
-
-//     await appointment.remove();
-//     res.status(200).json({ message: 'Appointment deleted' });
-//   } catch (error) {
-//     res.status(400).json({ message: 'Error deleting appointment', error });
-//   }
-// };
-
 const deleteAppointment = async (req, res) => {
   try {
     const appointment = await Appointment.findById(req.params.appointmentId);
