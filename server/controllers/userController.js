@@ -43,6 +43,17 @@ const loginUser = async (req, res) => {
   }
 };
 
+const signup = async (req, res) => {
+  const { username, password } = req.body;
+
+  const userExists = await User.findOne({ username });
+  if (userExists) return res.status(400).json({ message: 'User already exists' });
+
+  const user = new User({ username, password });
+  await user.save();
+  res.status(201).json({ message: 'User created successfully' });
+};
+
 const getUserProfile = async (req, res) => {
   const user = await User.findById(req.user.id);
 
@@ -96,4 +107,4 @@ const getFacilities = async (req, res) => {
   }
 };
 
-module.exports = { registerUser, loginUser, getUserProfile, updateUserProfile, getAppointments, getFacilities };
+module.exports = { registerUser, loginUser, signup, getUserProfile, updateUserProfile, getAppointments, getFacilities };
