@@ -14,6 +14,7 @@ const SignupPage = () => {
     try {
       await axios.post('http://localhost:5000/api/users/signup', { name, email, password });
       navigate('/login');
+      alert('User signed up successfully!');
       window.location.reload(); // Refresh the page
     } catch (error) {
       console.error('Error signing up', error);

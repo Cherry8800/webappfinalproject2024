@@ -44,14 +44,24 @@ const loginUser = async (req, res) => {
 };
 
 const signup = async (req, res) => {
-  const { username, password } = req.body;
+  const { name, email, password } = req.body;
 
-  const userExists = await User.findOne({ username });
-  if (userExists) return res.status(400).json({ message: 'User already exists' });
+  if (!name || !email || !password) {
+    return res.status(400).json({ message: 'Name, email, and password are required' });
+  }
 
-  const user = new User({ username, password });
-  await user.save();
-  res.status(201).json({ message: 'User created successfully' });
+  const userExists = await User.findOne({ email });
+  if (userExists) {
+    return res.status(400).json({ message: 'User already exists' });
+  }
+
+  try {
+    const user = new User({ name, email, password });
+    await user.save();
+    res.status(201).json({ message: 'User created successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Error creating user', error });
+  }
 };
 
 const getUserProfile = async (req, res) => {
