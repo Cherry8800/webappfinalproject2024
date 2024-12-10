@@ -10,15 +10,13 @@ console.log('JWT_SECRET:', process.env.JWT_SECRET); //verify the JWT_SECRET
 
 const app = express();
 app.use(express.json());
-app.use(cors());
 
 // Configure CORS
 app.use(cors({
-  origin: ['http://localhost:3000', 'https://QUEUECARE.netlify.app'],
+  origin: ['http://localhost:3000', 'https://your-netlify-site.netlify.app'], // Add your Netlify site URL here
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));
-
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
