@@ -110,7 +110,7 @@ const deleteUser = async (req, res) => {
       console.log('User not found');
       return res.status(404).json({ message: 'User not found' });
     }
-    await user.deleteOne(); // Use deleteOne() instead of remove()
+    await user.deleteOne(); 
     console.log('User removed successfully');
     res.json({ message: 'User removed' });
   } catch (error) {
@@ -118,22 +118,6 @@ const deleteUser = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
-// const deleteUser = async (req, res) => {
-//   try {
-//     console.log('Deleting user with ID:', req.params.id); // Log the user ID
-//     const user = await User.findById(req.params.id);
-//     if (!user) {
-//       console.log('User not found');
-//       return res.status(404).json({ message: 'User not found' });
-//     }
-//     await user.remove();
-//     console.log('User removed successfully');
-//     res.json({ message: 'User removed' });
-//   } catch (error) {
-//     console.error('Error deleting user:', error);
-//     res.status(500).json({ message: 'Server error' });
-//   }
-// };
 
 // Fetch user by ID
 const getUserById = async (req, res) => {
@@ -173,7 +157,7 @@ const deleteFacility = async (req, res) => {
     if (!facility) {
       return res.status(404).json({ message: 'Facility not found' });
     }
-    await facility.remove();
+    await facility.deleteOne();
     res.json({ message: 'Facility deleted' });
   } catch (error) {
     res.status(500).json({ message: 'Server error' });

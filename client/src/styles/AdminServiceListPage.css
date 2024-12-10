@@ -37,10 +37,10 @@ input {
 }
 
 button {
-    display: inline-block;
+    display: inline-block; 
     width: auto; 
     padding: 10px 20px; 
-    margin: 10px 0;
+    margin: 10px 5px; 
     background-color: #1fcfb2;
     color: white;
     border: none;

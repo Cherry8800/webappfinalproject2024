@@ -12,6 +12,7 @@ const AdminServiceListPage = () => {
   const [addingServiceFacility, setAddingServiceFacility] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
+  // Fetch facilities from the server
   const fetchFacilities = async () => {
     try {
       const { data } = await axios.get('http://localhost:5000/api/admin/services', {
@@ -28,6 +29,7 @@ const AdminServiceListPage = () => {
     fetchFacilities();
   }, []);
 
+  // Add a new service to a facility
   const addService = async () => {
     const facility = facilities.find(facility => facility.name === facilityName);
     if (facility) {
@@ -52,6 +54,7 @@ const AdminServiceListPage = () => {
     }
   };
 
+  // Add a service to an existing facility
   const addServiceToFacility = async (facilityId) => {
     const newService = { name: serviceName, waitTime: parseInt(waitTime) };
     try {
@@ -73,6 +76,7 @@ const AdminServiceListPage = () => {
     }
   };
 
+  // Start editing a facility or service
   const startEditing = (facility, service) => {
     setEditingFacility(facility);
     setFacilityName(facility.name);
@@ -88,6 +92,7 @@ const AdminServiceListPage = () => {
     setShowModal(true);
   };
 
+  // Save changes to a facility or service
   const saveChanges = async () => {
     const updatedServices = editingFacility.services.map(service =>
       service._id === editingService?._id ? { ...service, name: serviceName, waitTime: parseInt(waitTime) } : service
@@ -114,6 +119,7 @@ const AdminServiceListPage = () => {
     }
   };
 
+  // Delete a service from a facility
   const deleteService = async (facilityId, serviceId) => {
     try {
       await axios.delete(`http://localhost:5000/api/admin/services/${facilityId}/services/${serviceId}`, {
@@ -127,6 +133,21 @@ const AdminServiceListPage = () => {
     }
   };
 
+  // Delete a facility
+  const deleteFacility = async (facilityId) => {
+    try {
+      await axios.delete(`http://localhost:5000/api/admin/services/${facilityId}`, {
+        headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem('userInfo')).token}` },
+      });
+      alert('Facility deleted successfully');
+      fetchFacilities(); // Refresh the facilities list
+    } catch (error) {
+      console.error('Error deleting facility', error);
+      alert('Error deleting facility');
+    }
+  };
+
+  // Cancel editing
   const cancelEditing = () => {
     setEditingFacility(null);
     setEditingService(null);
@@ -136,12 +157,14 @@ const AdminServiceListPage = () => {
     setShowModal(false);
   };
 
+  // Cancel adding a service
   const cancelAddingService = () => {
     setAddingServiceFacility(null);
     setServiceName('');
     setWaitTime('');
   };
 
+  // Cancel adding a service
   const cancelAddService = () => {
     setFacilityName('');
     setServiceName('');
@@ -159,6 +182,7 @@ const AdminServiceListPage = () => {
         {showModal && <button type="button" onClick={saveChanges}>Save Changes</button>}
         <button type="button" onClick={cancelAddService}>Cancel</button>
       </form>
+      <h3>Available Services</h3>
       <table className="facilities-table">
         <thead>
           <tr>
@@ -181,6 +205,27 @@ const AdminServiceListPage = () => {
                 </td>
               </tr>
             ))
+          ))}
+        </tbody>
+      </table>
+
+      {/* Add a table to display facilities */}
+      <h3>Facilities List</h3>
+      <table className="facilities-table">
+        <thead>
+          <tr>
+            <th>Facility Name</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {facilities.map(facility => (
+            <tr key={facility._id}>
+              <td>{facility.name}</td>
+              <td>
+                <button onClick={() => deleteFacility(facility._id)}>Delete</button>
+              </td>
+            </tr>
           ))}
         </tbody>
       </table>
