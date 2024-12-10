@@ -3,6 +3,9 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../styles/SignupPage.css'; 
 
+// Using environment variable for API base URL
+const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
+
 const SignupPage = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -12,7 +15,7 @@ const SignupPage = () => {
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/users/signup', { name, email, password });
+      await axios.post(`${apiBaseUrl}/api/users/signup`, { name, email, password });
       navigate('/login');
       alert('User signed up successfully!');
       window.location.reload(); // Refresh the page

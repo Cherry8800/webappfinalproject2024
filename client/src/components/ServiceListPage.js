@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../styles/ServiceListPage.css';
 
+// Using environment variable for API base URL
+const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
+
 const ServiceListPage = () => {
   const [facilities, setFacilities] = useState([]);
   const [selectedFacility, setSelectedFacility] = useState('');
@@ -17,7 +20,7 @@ const ServiceListPage = () => {
           throw new Error('User not authenticated');
         }
 
-        const { data } = await axios.get('http://localhost:5000/api/users/facilities', {
+        const { data } = await axios.get(`${apiBaseUrl}/api/users/facilities`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         setFacilities(data);
@@ -40,7 +43,7 @@ const ServiceListPage = () => {
         throw new Error('User not authenticated');
       }
 
-      await axios.post('http://localhost:5000/api/appointments', {
+      await axios.post(`${apiBaseUrl}/api/appointments`, {
         facilityName: selectedFacility,
         serviceName: selectedService,
         appointmentDate,
