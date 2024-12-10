@@ -61,28 +61,26 @@ const Dashboard = () => {
       alert('Error updating appointment');
     }
   };
-
   const handleDelete = async (appointmentId) => {
     try {
+      console.log('Deleting appointment ID:', appointmentId);  // Log the ID
       const userInfo = JSON.parse(localStorage.getItem('userInfo'));
       if (!userInfo || !userInfo.token) {
         throw new Error('User not authenticated');
       }
-
-      console.log(`Deleting appointment ID: ${appointmentId}`);
-
+  
       const response = await axios.delete(`http://localhost:5000/api/appointments/${appointmentId}`, {
         headers: { Authorization: `Bearer ${userInfo.token}` },
       });
-      
+  
       console.log('Delete response:', response.data);
-
       setAppointments(appointments.filter(appointment => appointment._id !== appointmentId));
     } catch (error) {
       console.error('Error deleting appointment', error);
       alert('Error deleting appointment');
     }
   };
+  
 
   const calculateWaitTime = (appointmentDate, waitTime) => {
     const appointmentDateTime = new Date(appointmentDate);

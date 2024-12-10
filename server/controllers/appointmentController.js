@@ -52,11 +52,18 @@ const deleteAppointment = async (req, res) => {
       return res.status(404).json({ message: 'Appointment not found' });
     }
 
-    await appointment.remove();
+    // Use findByIdAndDelete to remove the appointment
+    await Appointment.findByIdAndDelete(req.params.appointmentId);
     res.status(200).json({ message: 'Appointment deleted' });
   } catch (error) {
-    res.status(400).json({ message: 'Error deleting appointment', error });
+    console.error('Error deleting appointment:', error.message);
+    res.status(400).json({ message: 'Error deleting appointment', error: error.message });
   }
 };
+
+
+
+module.exports = { bookAppointment, getAppointments, updateAppointment, deleteAppointment };
+
 
 module.exports = { bookAppointment, getAppointments, updateAppointment, deleteAppointment };
