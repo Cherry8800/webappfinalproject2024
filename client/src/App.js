@@ -12,6 +12,9 @@ import ServiceListPage from './components/ServiceListPage';
 import AdminDashboardPage from './components/AdminDashboardPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import Navbar from './components/Navbar';
+import AboutUs from './components/AboutUs';
+import ClinicTeam from './components/ClinicTeam';
+import Footer from './components/Footer';
 
 const App = () => {
   return (
@@ -21,6 +24,8 @@ const App = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
+        <Route path="/about-us" element={<AboutUs />} />
+        <Route path="/clinic-team" element={<ClinicTeam />} />
         <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
         <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
         <Route path="/contact" element={<ContactPage />} />
@@ -29,7 +34,9 @@ const App = () => {
         <Route path="/services" element={<ProtectedRoute><ServiceListPage /></ProtectedRoute>} />
         <Route path="/admin/dashboard" element={<ProtectedRoute role="admin"><AdminDashboardPage /></ProtectedRoute>} /> {/* Add AdminDashboardPage route */}
       </Routes>
+      <Footer /> 
     </>
+    
   );
 };
 
