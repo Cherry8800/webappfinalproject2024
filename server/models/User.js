@@ -6,6 +6,9 @@ const UserSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   role: { type: String, default: 'user' }, // 'admin' or 'user'
+  phone: { type: String }, // New field
+  address: { type: String }, // New field
+  bio: { type: String }, 
 });
 
 // Encrypt password before saving

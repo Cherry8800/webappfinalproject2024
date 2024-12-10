@@ -6,6 +6,9 @@ const ProfilePage = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [phone, setPhone] = useState('');
+  const [address, setAddress] = useState('');
+  const [bio, setBio] = useState('');
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -15,6 +18,9 @@ const ProfilePage = () => {
         });
         setName(data.name);
         setEmail(data.email);
+        setPhone(data.phone || ''); // Set phone if available
+        setAddress(data.address || ''); // Set address if available
+        setBio(data.bio || ''); // Set bio if available
       } catch (error) {
         console.error('Error fetching profile', error);
         alert('Error fetching profile');
@@ -26,9 +32,12 @@ const ProfilePage = () => {
   const updateProfile = async (e) => {
     e.preventDefault();
     try {
-      await axios.put('http://localhost:5000/api/users/profile', { name, email, password }, {
-        headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem('userInfo')).token}` },
-      });
+      await axios.put('http://localhost:5000/api/users/profile', 
+        { name, email, password, phone, address, bio }, 
+        {
+          headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem('userInfo')).token}` },
+        }
+      );
       alert('Profile updated successfully');
     } catch (error) {
       console.error('Error updating profile', error);
@@ -51,6 +60,18 @@ const ProfilePage = () => {
         <div>
           <label>Password</label>
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        </div>
+        <div>
+          <label>Phone</label>
+          <input type="text" value={phone} onChange={(e) => setPhone(e.target.value)} />
+        </div>
+        <div>
+          <label>Address</label>
+          <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} />
+        </div>
+        <div>
+          <label>Bio</label>
+          <textarea value={bio} onChange={(e) => setBio(e.target.value)} />
         </div>
         <button type="submit">Update Profile</button>
       </form>
