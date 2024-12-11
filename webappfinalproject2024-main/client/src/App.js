@@ -12,6 +12,9 @@ import ServiceListPage from './components/ServiceListPage';
 import AdminDashboardPage from './components/AdminDashboardPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import Navbar from './components/Navbar';
+import ContactForm from '../../server/models/ContactForm';
+import AdminContactPage from './components/AdminContactPage';
+import { useSelector } from 'react-redux';
 
 const App = () => {
   return (
@@ -27,6 +30,15 @@ const App = () => {
         <Route path="/admin/users" element={<ProtectedRoute role="admin"><UserListPage /></ProtectedRoute>} />
         <Route path="/admin/services" element={<ProtectedRoute role="admin"><AdminServiceListPage /></ProtectedRoute>} />
         <Route path="/services" element={<ProtectedRoute><ServiceListPage /></ProtectedRoute>} />
+        <Route path="/contact" element={<ContactForm isAuthenticated={isAuthenticated} />}/>
+        <Route path="/admin/contact-forms"element={
+    isAdmin ? (
+      <AdminContactPage />
+    ) : (
+      <Navigate to="/" replace />
+    )
+  }
+/>
         <Route path="/admin/dashboard" element={<ProtectedRoute role="admin"><AdminDashboardPage /></ProtectedRoute>} /> {/* Add AdminDashboardPage route */}
       </Routes>
     </>

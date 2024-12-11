@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const path = require('path');
+const contactFormRoutes = require('./routes/contact')
 
 dotenv.config();
 console.log('MONGO_URI:', process.env.MONGO_URI); //verify the MONGO_URI
@@ -21,7 +22,7 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
 app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/admin', require('./routes/adminRoutes'));
 app.use('/api/appointments', require('./routes/appointmentRoutes'));
-
+app.use('/api/contact',require('./routes/contact'));
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, '../client/build')));
 
