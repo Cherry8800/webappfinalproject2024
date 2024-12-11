@@ -49,9 +49,9 @@ const Navbar = () => {
             <li><Link to="/login">Login</Link></li>
           </>
         )}
-        <li><Link to="/contact">Contact</Link></li>
+        {/* <li><Link to="/contact">Contact</Link></li>
         <li><Link to="/about-us">About Us</Link></li>
-        <li><Link to="/clinic-team">Clinic Team</Link></li>        
+        <li><Link to="/clinic-team">Clinic Team</Link></li>         */}
       </ul>
     </nav>
   );
