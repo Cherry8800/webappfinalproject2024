@@ -18,6 +18,7 @@ app.use(cors({
   credentials: true
 }));
 
+
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("MongoDB connected"))
@@ -44,11 +45,6 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
-
-
-
-
 
 // const express = require('express');
 // const mongoose = require('mongoose');
