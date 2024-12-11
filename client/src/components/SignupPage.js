@@ -13,7 +13,6 @@ const SignupPage = () => {
     e.preventDefault();
     try {
       await axios.post('/api/users/signup', { name, email, password });
-      console.log('API Base URL:', process.env.REACT_APP_API_BASE_URL);
       navigate('/login');
       alert('User signed up successfully!');
       window.location.reload(); // Refresh the page
