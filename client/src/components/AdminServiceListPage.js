@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../styles/AdminServiceListPage.css';
 
+// Using environment variable for API base URL
+const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
+
 const AdminServiceListPage = () => {
   const [facilities, setFacilities] = useState([]);
   const [facilityName, setFacilityName] = useState('');
@@ -15,7 +18,7 @@ const AdminServiceListPage = () => {
   // Fetch facilities from the server
   const fetchFacilities = async () => {
     try {
-      const { data } = await axios.get('/api/admin/services', {
+      const { data } = await axios.get(`${apiBaseUrl}/api/admin/services`, {
         headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem('userInfo')).token}` },
       });
       setFacilities(data);
@@ -40,7 +43,7 @@ const AdminServiceListPage = () => {
 
     const newService = { name: serviceName, waitTime: parseInt(waitTime) };
     try {
-      await axios.post('/api/admin/services', { facilityName, services: [newService] }, {
+      await axios.post(`${apiBaseUrl}/api/admin/services`, { facilityName, services: [newService] }, {
         headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem('userInfo')).token}` },
       });
       setFacilityName('');
@@ -59,7 +62,7 @@ const AdminServiceListPage = () => {
     const newService = { name: serviceName, waitTime: parseInt(waitTime) };
     try {
       const facility = facilities.find(facility => facility._id === facilityId);
-      await axios.put(`/api/admin/services/${facilityId}`, {
+      await axios.put(`${apiBaseUrl}/api/admin/services/${facilityId}`, {
         name: facility.name,
         services: [...facility.services, newService],
       }, {
@@ -99,7 +102,7 @@ const AdminServiceListPage = () => {
     );
 
     try {
-      await axios.put(`/api/admin/services/${editingFacility._id}`, {
+      await axios.put(`${apiBaseUrl}/api/admin/services/${editingFacility._id}`, {
         name: facilityName,
         services: updatedServices,
       }, {
@@ -122,7 +125,7 @@ const AdminServiceListPage = () => {
   // Delete a service from a facility
   const deleteService = async (facilityId, serviceId) => {
     try {
-      await axios.delete(`/api/admin/services/${facilityId}/services/${serviceId}`, {
+      await axios.delete(`${apiBaseUrl}/api/admin/servicess/${facilityId}/services/${serviceId}`, {
         headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem('userInfo')).token}` },
       });
       alert('Service deleted successfully');
@@ -136,7 +139,7 @@ const AdminServiceListPage = () => {
   // Delete a facility
   const deleteFacility = async (facilityId) => {
     try {
-      await axios.delete(`/api/admin/services/${facilityId}`, {
+      await axios.delete(`${apiBaseUrl}/api/admin/services/${facilityId}`, {
         headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem('userInfo')).token}` },
       });
       alert('Facility deleted successfully');
@@ -283,12 +286,10 @@ const AdminServiceListPage = () => {
 
 export default AdminServiceListPage;
 
+
 // import React, { useState, useEffect } from 'react';
 // import axios from 'axios';
 // import '../styles/AdminServiceListPage.css';
-
-// // Using environment variable for API base URL
-// const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
 // const AdminServiceListPage = () => {
 //   const [facilities, setFacilities] = useState([]);
@@ -303,7 +304,7 @@ export default AdminServiceListPage;
 //   // Fetch facilities from the server
 //   const fetchFacilities = async () => {
 //     try {
-//       const { data } = await axios.get(`${apiBaseUrl}/api/admin/services`, {
+//       const { data } = await axios.get('/api/admin/services', {
 //         headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem('userInfo')).token}` },
 //       });
 //       setFacilities(data);
@@ -328,7 +329,7 @@ export default AdminServiceListPage;
 
 //     const newService = { name: serviceName, waitTime: parseInt(waitTime) };
 //     try {
-//       await axios.post(`${apiBaseUrl}/api/admin/services`, { facilityName, services: [newService] }, {
+//       await axios.post('/api/admin/services', { facilityName, services: [newService] }, {
 //         headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem('userInfo')).token}` },
 //       });
 //       setFacilityName('');
@@ -347,7 +348,7 @@ export default AdminServiceListPage;
 //     const newService = { name: serviceName, waitTime: parseInt(waitTime) };
 //     try {
 //       const facility = facilities.find(facility => facility._id === facilityId);
-//       await axios.put(`${apiBaseUrl}/api/admin/services/${facilityId}`, {
+//       await axios.put(`/api/admin/services/${facilityId}`, {
 //         name: facility.name,
 //         services: [...facility.services, newService],
 //       }, {
@@ -387,7 +388,7 @@ export default AdminServiceListPage;
 //     );
 
 //     try {
-//       await axios.put(`${apiBaseUrl}/api/admin/services/${editingFacility._id}`, {
+//       await axios.put(`/api/admin/services/${editingFacility._id}`, {
 //         name: facilityName,
 //         services: updatedServices,
 //       }, {
@@ -410,7 +411,7 @@ export default AdminServiceListPage;
 //   // Delete a service from a facility
 //   const deleteService = async (facilityId, serviceId) => {
 //     try {
-//       await axios.delete(`${apiBaseUrl}/api/admin/servicess/${facilityId}/services/${serviceId}`, {
+//       await axios.delete(`/api/admin/services/${facilityId}/services/${serviceId}`, {
 //         headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem('userInfo')).token}` },
 //       });
 //       alert('Service deleted successfully');
@@ -424,7 +425,7 @@ export default AdminServiceListPage;
 //   // Delete a facility
 //   const deleteFacility = async (facilityId) => {
 //     try {
-//       await axios.delete(`${apiBaseUrl}/api/admin/services/${facilityId}`, {
+//       await axios.delete(`/api/admin/services/${facilityId}`, {
 //         headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem('userInfo')).token}` },
 //       });
 //       alert('Facility deleted successfully');

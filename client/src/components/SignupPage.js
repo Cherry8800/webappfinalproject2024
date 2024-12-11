@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import '../styles/SignupPage.css';
+import '../styles/SignupPage.css'; 
+
+// Using environment variable for API base URL
+const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
 const SignupPage = () => {
   const [name, setName] = useState('');
@@ -12,7 +15,7 @@ const SignupPage = () => {
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('/api/users/signup', { name, email, password });
+      await axios.post(`${apiBaseUrl}/api/users/signup`, { name, email, password });
       navigate('/login');
       alert('User signed up successfully!');
       window.location.reload(); // Refresh the page
@@ -40,10 +43,7 @@ export default SignupPage;
 // import React, { useState } from 'react';
 // import axios from 'axios';
 // import { useNavigate } from 'react-router-dom';
-// import '../styles/SignupPage.css'; 
-
-// // Using environment variable for API base URL
-// const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
+// import '../styles/SignupPage.css';
 
 // const SignupPage = () => {
 //   const [name, setName] = useState('');
@@ -54,7 +54,7 @@ export default SignupPage;
 //   const handleSignup = async (e) => {
 //     e.preventDefault();
 //     try {
-//       await axios.post(`${apiBaseUrl}/api/users/signup`, { name, email, password });
+//       await axios.post('/api/users/signup', { name, email, password });
 //       navigate('/login');
 //       alert('User signed up successfully!');
 //       window.location.reload(); // Refresh the page

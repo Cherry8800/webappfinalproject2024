@@ -1,6 +1,10 @@
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../styles/ServiceListPage.css';
+
+// Using environment variable for API base URL
+const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
 const ServiceListPage = () => {
   const [facilities, setFacilities] = useState([]);
@@ -17,7 +21,7 @@ const ServiceListPage = () => {
           throw new Error('User not authenticated');
         }
 
-        const { data } = await axios.get('/api/users/facilities', {
+        const { data } = await axios.get(`${apiBaseUrl}/api/users/facilities`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         setFacilities(data);
@@ -40,7 +44,7 @@ const ServiceListPage = () => {
         throw new Error('User not authenticated');
       }
 
-      await axios.post('/api/appointments', {
+      await axios.post(`${apiBaseUrl}/api/appointments`, {
         facilityName: selectedFacility,
         serviceName: selectedService,
         appointmentDate,
@@ -112,12 +116,10 @@ const ServiceListPage = () => {
 
 export default ServiceListPage;
 
+
 // import React, { useState, useEffect } from 'react';
 // import axios from 'axios';
 // import '../styles/ServiceListPage.css';
-
-// // Using environment variable for API base URL
-// const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
 // const ServiceListPage = () => {
 //   const [facilities, setFacilities] = useState([]);
@@ -134,7 +136,7 @@ export default ServiceListPage;
 //           throw new Error('User not authenticated');
 //         }
 
-//         const { data } = await axios.get(`${apiBaseUrl}/api/users/facilities`, {
+//         const { data } = await axios.get('/api/users/facilities', {
 //           headers: { Authorization: `Bearer ${userInfo.token}` },
 //         });
 //         setFacilities(data);
@@ -157,7 +159,7 @@ export default ServiceListPage;
 //         throw new Error('User not authenticated');
 //       }
 
-//       await axios.post(`${apiBaseUrl}/api/appointments`, {
+//       await axios.post('/api/appointments', {
 //         facilityName: selectedFacility,
 //         serviceName: selectedService,
 //         appointmentDate,

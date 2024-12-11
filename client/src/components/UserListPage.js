@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../styles/UserListPage.css'; // Import the CSS file
 
+// Using environment variable for API base URL
+const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
+
 const UserListPage = () => {
   const [users, setUsers] = useState([]);
   const [name, setName] = useState('');
@@ -12,7 +15,7 @@ const UserListPage = () => {
 
   const fetchUsers = async () => {
     try {
-      const { data } = await axios.get('/api/admin/users', {
+      const { data } = await axios.get(`${apiBaseUrl}/api/admin/users`, {
         headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem('userInfo')).token}` },
       });
       // Sort users by role and then alphabetically by name
@@ -36,7 +39,7 @@ const UserListPage = () => {
   const deleteUser = async (userId) => {
     console.log('Deleting user with ID:', userId); // Log the user ID
     try {
-      await axios.delete(`/api/admin/users/${userId}`, {
+      await axios.delete(`${apiBaseUrl}/api/admin/users/${userId}`, {
         headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem('userInfo')).token}` },
       });
       setUsers(users.filter(user => user._id !== userId));
@@ -50,7 +53,7 @@ const UserListPage = () => {
   const addUser = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('/api/admin/users', { name, email, password, role }, {
+      await axios.post(`${apiBaseUrl}/api/admin/users`, { name, email, password, role }, {
         headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem('userInfo')).token}` },
       });
       setName('');
@@ -75,7 +78,7 @@ const UserListPage = () => {
   const updateUser = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`/api/admin/users/${editingUserId}`, { name, email, role }, {
+      await axios.put(`${apiBaseUrl}/api/admin/users/${editingUserId}`, { name, email, role }, {
         headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem('userInfo')).token}` },
       });
       setName('');
@@ -133,12 +136,10 @@ const UserListPage = () => {
 
 export default UserListPage;
 
+
 // import React, { useEffect, useState } from 'react';
 // import axios from 'axios';
 // import '../styles/UserListPage.css'; // Import the CSS file
-
-// // Using environment variable for API base URL
-// const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
 // const UserListPage = () => {
 //   const [users, setUsers] = useState([]);
@@ -150,7 +151,7 @@ export default UserListPage;
 
 //   const fetchUsers = async () => {
 //     try {
-//       const { data } = await axios.get(`${apiBaseUrl}/api/admin/users`, {
+//       const { data } = await axios.get('/api/admin/users', {
 //         headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem('userInfo')).token}` },
 //       });
 //       // Sort users by role and then alphabetically by name
@@ -174,7 +175,7 @@ export default UserListPage;
 //   const deleteUser = async (userId) => {
 //     console.log('Deleting user with ID:', userId); // Log the user ID
 //     try {
-//       await axios.delete(`${apiBaseUrl}/api/admin/users/${userId}`, {
+//       await axios.delete(`/api/admin/users/${userId}`, {
 //         headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem('userInfo')).token}` },
 //       });
 //       setUsers(users.filter(user => user._id !== userId));
@@ -188,7 +189,7 @@ export default UserListPage;
 //   const addUser = async (e) => {
 //     e.preventDefault();
 //     try {
-//       await axios.post(`${apiBaseUrl}/api/admin/users`, { name, email, password, role }, {
+//       await axios.post('/api/admin/users', { name, email, password, role }, {
 //         headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem('userInfo')).token}` },
 //       });
 //       setName('');
@@ -213,7 +214,7 @@ export default UserListPage;
 //   const updateUser = async (e) => {
 //     e.preventDefault();
 //     try {
-//       await axios.put(`${apiBaseUrl}/api/admin/users/${editingUserId}`, { name, email, role }, {
+//       await axios.put(`/api/admin/users/${editingUserId}`, { name, email, role }, {
 //         headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem('userInfo')).token}` },
 //       });
 //       setName('');

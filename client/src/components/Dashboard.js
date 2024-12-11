@@ -1,6 +1,10 @@
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../styles/Dashboard.css';
+
+// Using environment variable for API base URL
+const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
 const Dashboard = () => {
   const [appointments, setAppointments] = useState([]);
@@ -17,7 +21,7 @@ const Dashboard = () => {
           throw new Error('User not authenticated');
         }
 
-        const { data } = await axios.get('/api/appointments', {
+        const { data } = await axios.get(`${apiBaseUrl}/api/appointments`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         setAppointments(data);
@@ -55,7 +59,7 @@ const Dashboard = () => {
 
       console.log(`Updating appointment ID: ${editingAppointment._id} with new date: ${newAppointmentDate}`);
 
-      const response = await axios.put(`/api/appointments/${editingAppointment._id}`, {
+      const response = await axios.put(`${apiBaseUrl}/api/appointments/${editingAppointment._id}`, {
         appointmentDate: newAppointmentDate,
       }, {
         headers: { Authorization: `Bearer ${userInfo.token}` },
@@ -87,7 +91,7 @@ const Dashboard = () => {
         throw new Error('User not authenticated');
       }
 
-      const response = await axios.delete(`/api/appointments/${appointmentId}`, {
+      const response = await axios.delete(`${apiBaseUrl}/api/appointments/${appointmentId}`, {
         headers: { Authorization: `Bearer ${userInfo.token}` },
       });
 
@@ -166,12 +170,10 @@ const Dashboard = () => {
 
 export default Dashboard;
 
+
 // import React, { useState, useEffect } from 'react';
 // import axios from 'axios';
 // import '../styles/Dashboard.css';
-
-// // Using environment variable for API base URL
-// const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
 // const Dashboard = () => {
 //   const [appointments, setAppointments] = useState([]);
@@ -188,7 +190,7 @@ export default Dashboard;
 //           throw new Error('User not authenticated');
 //         }
 
-//         const { data } = await axios.get(`${apiBaseUrl}/api/appointments`, {
+//         const { data } = await axios.get('/api/appointments', {
 //           headers: { Authorization: `Bearer ${userInfo.token}` },
 //         });
 //         setAppointments(data);
@@ -226,7 +228,7 @@ export default Dashboard;
 
 //       console.log(`Updating appointment ID: ${editingAppointment._id} with new date: ${newAppointmentDate}`);
 
-//       const response = await axios.put(`${apiBaseUrl}/api/appointments/${editingAppointment._id}`, {
+//       const response = await axios.put(`/api/appointments/${editingAppointment._id}`, {
 //         appointmentDate: newAppointmentDate,
 //       }, {
 //         headers: { Authorization: `Bearer ${userInfo.token}` },
@@ -258,7 +260,7 @@ export default Dashboard;
 //         throw new Error('User not authenticated');
 //       }
 
-//       const response = await axios.delete(`${apiBaseUrl}/api/appointments/${appointmentId}`, {
+//       const response = await axios.delete(`/api/appointments/${appointmentId}`, {
 //         headers: { Authorization: `Bearer ${userInfo.token}` },
 //       });
 
