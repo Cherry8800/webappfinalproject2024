@@ -18,6 +18,8 @@ app.use(cors({
   credentials: true
 }));
 
+// Handle CORS preflight requests
+app.options('*', cors());
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
