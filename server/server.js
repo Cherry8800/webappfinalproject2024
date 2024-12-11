@@ -13,7 +13,7 @@ app.use(express.json());
 
 // Configure CORS
 app.use(cors({
-  origin: ['http://localhost:3000', 'https://QUEUECARE.netlify.appp'], // Add your Netlify site URL here
+  origin: ['http://localhost:3000', 'https://QUEUECARE.netlify.app'], // Add your Netlify site URL here
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));
@@ -44,6 +44,11 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+
+
+
+
 
 // const express = require('express');
 // const mongoose = require('mongoose');
