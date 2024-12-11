@@ -23,6 +23,9 @@ const Navbar = () => {
       </div>
       <ul className="navbar-links">
         <li><Link to="/">Home</Link></li>
+        <li><Link to="/contact">Contact</Link></li>
+        <li><Link to="/about-us">About Us</Link></li>
+        <li><Link to="/clinic-team">Clinic Team</Link></li>   
         {userInfo ? (
           <>
             {userInfo.role === 'admin' ? (

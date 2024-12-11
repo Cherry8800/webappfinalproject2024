@@ -13,7 +13,7 @@ app.use(express.json());
 
 // Configure CORS
 app.use(cors({
-  origin: ['http://localhost:3000', 'https://queuecare.netlify.app'], // Add your Netlify site URL here
+  origin: ['http://localhost:3000', 'https://queuecare.netlify.app'],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));
