@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import '../styles/Dashboard.css'; // Import the CSS file
+import '../styles/Dashboard.css';
+
+// Using environment variable for API base URL
+const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
 const Dashboard = () => {
   const [appointments, setAppointments] = useState([]);
   const [editingAppointment, setEditingAppointment] = useState(null);
   const [newAppointmentDate, setNewAppointmentDate] = useState('');
+  const [message, setMessage] = useState(''); // State variable for messages
+  const [messageType, setMessageType] = useState(''); // State variable for message type (success or error)
 
   useEffect(() => {
     const fetchAppointments = async () => {
@@ -15,17 +20,29 @@ const Dashboard = () => {
           throw new Error('User not authenticated');
         }
 
-        const { data } = await axios.get('http://localhost:5000/api/appointments', {
+        const { data } = await axios.get(`${apiBaseUrl}/api/appointments`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         setAppointments(data);
       } catch (error) {
         console.error('Error fetching appointments', error);
-        alert('Error fetching appointments');
+        setMessage('Error fetching appointments');
+        setMessageType('error');
       }
     };
     fetchAppointments();
   }, []);
+
+  useEffect(() => {
+    if (message) {
+      const timer = setTimeout(() => {
+        setMessage('');
+        setMessageType('');
+      }, 5000); // Clear message after 5 seconds
+
+      return () => clearTimeout(timer); // Clear timeout if component unmounts or message changes
+    }
+  }, [message]);
 
   const handleEdit = (appointment) => {
     setEditingAppointment(appointment);
@@ -41,7 +58,7 @@ const Dashboard = () => {
 
       console.log(`Updating appointment ID: ${editingAppointment._id} with new date: ${newAppointmentDate}`);
 
-      const response = await axios.put(`http://localhost:5000/api/appointments/${editingAppointment._id}`, {
+      const response = await axios.put(`${apiBaseUrl}/api/appointments/${editingAppointment._id}`, {
         appointmentDate: newAppointmentDate,
       }, {
         headers: { Authorization: `Bearer ${userInfo.token}` },
@@ -56,11 +73,15 @@ const Dashboard = () => {
       ));
       setEditingAppointment(null);
       setNewAppointmentDate('');
+      setMessage('Appointment updated successfully');
+      setMessageType('success');
     } catch (error) {
       console.error('Error updating appointment', error);
-      alert('Error updating appointment');
+      setMessage('Error updating appointment');
+      setMessageType('error');
     }
   };
+
   const handleDelete = async (appointmentId) => {
     try {
       console.log('Deleting appointment ID:', appointmentId);  // Log the ID
@@ -68,19 +89,21 @@ const Dashboard = () => {
       if (!userInfo || !userInfo.token) {
         throw new Error('User not authenticated');
       }
-  
-      const response = await axios.delete(`http://localhost:5000/api/appointments/${appointmentId}`, {
+
+      const response = await axios.delete(`${apiBaseUrl}/api/appointments/${appointmentId}`, {
         headers: { Authorization: `Bearer ${userInfo.token}` },
       });
-  
+
       console.log('Delete response:', response.data);
       setAppointments(appointments.filter(appointment => appointment._id !== appointmentId));
+      setMessage('Appointment deleted successfully');
+      setMessageType('success');
     } catch (error) {
       console.error('Error deleting appointment', error);
-      alert('Error deleting appointment');
+      setMessage('Error deleting appointment');
+      setMessageType('error');
     }
   };
-  
 
   const calculateWaitTime = (appointmentDate, waitTime) => {
     const appointmentDateTime = new Date(appointmentDate);
@@ -97,6 +120,11 @@ const Dashboard = () => {
       <h2>Dashboard</h2>
       <p>Welcome to your dashboard! Manage your services here.</p>
       <h3>Your Appointments</h3>
+      {message && (
+        <div className={`message ${messageType}`}>
+          {message}
+        </div>
+      )}
       <table className="appointments-table">
         <thead>
           <tr>

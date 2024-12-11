@@ -1,0 +1,51 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .clinic-team-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center;
+    color: #333;
+  }
+  
+  .clinic-team-container h1 {
+    font-size: 2.5rem;
+    color: #1fcfb2;
+    margin-bottom: 20px;
+  }
+  
+  .clinic-team-container p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin: 10px 0;
+  }
+  
+  .team-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0;
+    text-align: left;
+  }
+  
+  .team-list li {
+    margin: 10px 0;
+  }
+  
+  .team-list a {
+    font-size: 1.1rem;
+    color: #1fcfb2;
+    text-decoration: none;
+  }
+  
+  .team-list a:hover {
+    text-decoration: underline;
+    color: #17a589;
+  }

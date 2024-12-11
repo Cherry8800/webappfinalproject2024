@@ -110,7 +110,7 @@ const deleteUser = async (req, res) => {
       console.log('User not found');
       return res.status(404).json({ message: 'User not found' });
     }
-    await user.remove();
+    await user.deleteOne(); 
     console.log('User removed successfully');
     res.json({ message: 'User removed' });
   } catch (error) {
@@ -157,7 +157,7 @@ const deleteFacility = async (req, res) => {
     if (!facility) {
       return res.status(404).json({ message: 'Facility not found' });
     }
-    await facility.remove();
+    await facility.deleteOne();
     res.json({ message: 'Facility deleted' });
   } catch (error) {
     res.status(500).json({ message: 'Server error' });

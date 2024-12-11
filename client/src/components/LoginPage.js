@@ -1,17 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../styles/LoginPage.css';
+
+// Using environment variable for API base URL
+const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      localStorage.removeItem('userInfo');
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []);
+
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/users/login', { email, password });
+      const response = await axios.post(`${apiBaseUrl}/api/users/login`, { email, password });
       const data = response.data;
       if (data) {
         localStorage.setItem('userInfo', JSON.stringify(data));
