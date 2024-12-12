@@ -125,7 +125,7 @@ const AdminServiceListPage = () => {
   // Delete a service from a facility
   const deleteService = async (facilityId, serviceId) => {
     try {
-      await axios.delete(`${apiBaseUrl}/api/admin/servicess/${facilityId}/services/${serviceId}`, {
+      await axios.delete(`${apiBaseUrl}/api/admin/services/${facilityId}/services/${serviceId}`, {
         headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem('userInfo')).token}` },
       });
       alert('Service deleted successfully');
